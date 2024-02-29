@@ -39,6 +39,12 @@
       border-radius: 50%;
       overflow: hidden;
   }
+
+ .eyes.blinking .eye {
+      height: 3px;
+      background-color: black;
+      border-radius: 1px;
+  }
   
   .face .eyes .eye .pupil {
       position: absolute;
