@@ -1,0 +1,51 @@
+/* Moving Eyes */
+
+.face {
+    position: fixed;
+    bottom: -40vw;
+    left: 25%;
+    transform: translateY(100%);
+    transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1) .15s;
+    width: 50vw;
+    height: 50vw;
+    border-radius: 50%;
+    background-color: #858d4b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .face.is-visible {
+    transform: translateY(0);
+  }
+  
+  .face .eyes {
+      position: relative;
+      top: 0;
+      display: flex;
+      flex-wrap: wrap;
+  }
+  
+  .face .eyes .eye {
+      position: relative;
+      top: -20vw;
+      left: 0;
+      width: 5vw;
+      height: 5vw;
+      display: block;
+      margin: 0 .75vw;
+      background: #fff;
+      border-radius: 50%;
+      overflow: hidden;
+  }
+  
+  .face .eyes .eye .pupil {
+      position: absolute;
+      top: 1.5vw;
+      left: 3vw;
+      transform: translate(-50%,-50%);
+      width: 3vw;
+      height: 3vw;
+      background: #333;
+      border-radius: 50%;
+  }
