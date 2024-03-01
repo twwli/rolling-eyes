@@ -29,7 +29,7 @@ function startBlinking() {
     setTimeout(() => {
       eyes.classList.remove("blinking");
       // Schedules the next blinking after a random delay
-      blinkingTimeout = setTimeout(startBlinking, Math.random() * (12000 - 6000) + 6000);
+      blinkingTimeout = setTimeout(startBlinking, Math.random() * (30000 - 15000) + 15000);
     }, 500); // Removes the class after 100ms
   }
 }
