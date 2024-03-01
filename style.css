@@ -1,4 +1,8 @@
-/* Moving Eyes */
+/* Rolling Eyes */
+
+body {
+    background-color: #f9f8f4;
+}
 
 .face {
     position: fixed;
