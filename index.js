@@ -4,7 +4,7 @@ var eyes = document.getElementsByClassName("eyes")[0]; // Ensure this correctly 
 var pupils = document.getElementsByClassName("pupil");
 let addVisibleTimeout; // To store the timer for adding .is-visible
 let mouseMoveTimeout;
-let blinkingTimeout; // New timer to manage the delay between blinks
+let isMouseMoving = false; // To track mouse movement
 
 // List of predefined colors
 const colors = [
@@ -22,23 +22,24 @@ function getRandomColor() {
 }
 
 function startBlinking() {
-  if (face.classList.contains("is-visible")) {
-    clearTimeout(blinkingTimeout); // Cancel any planned blinking
-    // Adds the .blinking class to .eyes for 100ms
+  if (!isMouseMoving) { // Removes the check for .is-visible
     eyes.classList.add("blinking");
     setTimeout(() => {
       eyes.classList.remove("blinking");
-      // Schedules the next blinking after a random delay
-      blinkingTimeout = setTimeout(startBlinking, Math.random() * (30000 - 15000) + 15000);
-    }, 500); // Removes the class after 100ms
+    }, 250); // Removes the class after 250ms
+    
+    // Schedule the next blinking after a random delay
+    setTimeout(startBlinking, Math.random() * (12000 - 6000) + 6000);
   }
 }
 
 document.onmousemove = function(event) {
-  clearTimeout(mouseMoveTimeout); // Cancels the previous timer
+  isMouseMoving = true; // Indicates the mouse is moving
+  clearTimeout(mouseMoveTimeout); // Cancels the timer for mouse inactivity
+  
   mouseMoveTimeout = setTimeout(() => {
-    // Starts the blinking effect after a certain time without mouse movement
-    startBlinking();
+    isMouseMoving = false; // Resets the movement indicator after a delay without movement
+    startBlinking(); // Restart blinking only if the mouse is still
   }, 500); // Time before considering the mouse as immobile
 
   var x = event.clientX * 100 / window.innerWidth + "%";
@@ -50,23 +51,21 @@ document.onmousemove = function(event) {
     pupils[i].style.transform = "translate(-" + x + ", -" + y + ")";
   }
 
-  // Plans the addition of .is-visible with a new color
+  // Plans the addition of .is-visible with a new color after 1 minute of inactivity
   clearTimeout(addVisibleTimeout); // Make sure to cancel the previous timer before scheduling a new one
   addVisibleTimeout = setTimeout(() => {
     if (!face.classList.contains("is-visible")) {
       face.classList.add("is-visible");
       face.style.backgroundColor = getRandomColor();
     }
-  }, 400);
+  }, 60000); // 60000 ms for 1 minute
 };
 
 document.addEventListener("click", function() {
   clearTimeout(addVisibleTimeout);
-  clearTimeout(blinkingTimeout); // Stops the blinking when the user clicks
   face.classList.remove("is-visible");
 });
 
 face.addEventListener("mouseover", function() {
-  clearTimeout(blinkingTimeout); // Also stops the blinking on hover
   face.classList.remove("is-visible");
 });
